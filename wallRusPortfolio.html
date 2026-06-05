@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WallRus — portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <span class="mark">WallRus<span class="dot">.</span></span>
+      <span class="tag">portfolio</span>
+    </div>
+    <nav>
+      <button class="nav-link active" data-view="dashboard">Dashboard</button>
+      <button class="nav-link" data-view="portfolio">Portfolio</button>
+      <button class="nav-link" data-view="transactions">Transactions</button>
+      <button class="nav-link" data-view="analytics">Analytics</button>
+      <button class="nav-link" data-view="settings">Settings</button>
+    </nav>
+    <button class="theme-btn" id="theme-btn" aria-label="Switch to dark mode">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M13.5 10.5A6 6 0 016 3a7 7 0 100 10 6 6 0 007.5-2.5z"/></svg>
+    </button>
+    <button class="add-btn" id="add-btn">Add transaction</button>
+  </header>
+
+  <!-- DASHBOARD -->
+  <section class="view show" id="view-dashboard">
+    <div class="hero">
+      <div class="hero-label">Current value</div>
+      <div id="hero-value" class="mono">€0.00</div>
+      <div id="hero-return" class="hero-return flat"></div>
+    </div>
+    <div class="stats" id="stat-cards"></div>
+    <div class="meta-row">
+      <button class="ghost-btn" id="refresh-btn">↻ Refresh prices</button>
+      <span id="refresh-meta"></span>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section class="view" id="view-portfolio">
+    <div class="section-head">
+      <h2>Holdings</h2>
+      <button class="ghost-btn" id="portfolio-refresh">↻ Refresh prices</button>
+    </div>
+    <div class="panel" id="portfolio-body"></div>
+    <div class="section-head" style="margin-top:30px"><h2>Cash</h2></div>
+    <div class="panel" id="cash-body"></div>
+  </section>
+
+  <!-- TRANSACTIONS -->
+  <section class="view" id="view-transactions">
+    <div class="section-head"><h2>Transactions</h2></div>
+    <!-- FEATURE 2+3: date range + symbol filter row -->
+    <div class="txn-filter-row">
+      <label class="filter-lbl" for="txn-from">From</label>
+      <div class="date-wrap">
+        <input type="text" id="txn-from" class="filter-date" placeholder="dd/mm/yyyy" maxlength="10" inputmode="numeric">
+        <button type="button" class="cal-btn" aria-label="Pick start date" onclick="document.getElementById('txn-from-pick').showPicker()"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="1" y="2.5" width="12" height="10.5" rx="1.5"/><line x1="4.5" y1="1" x2="4.5" y2="4"/><line x1="9.5" y1="1" x2="9.5" y2="4"/><line x1="1" y1="6.5" x2="13" y2="6.5"/></svg></button>
+        <input type="date" id="txn-from-pick" class="date-pick-hidden" tabindex="-1">
+      </div>
+      <label class="filter-lbl" for="txn-to">To</label>
+      <div class="date-wrap">
+        <input type="text" id="txn-to" class="filter-date" placeholder="dd/mm/yyyy" maxlength="10" inputmode="numeric">
+        <button type="button" class="cal-btn" aria-label="Pick end date" onclick="document.getElementById('txn-to-pick').showPicker()"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="1" y="2.5" width="12" height="10.5" rx="1.5"/><line x1="4.5" y1="1" x2="4.5" y2="4"/><line x1="9.5" y1="1" x2="9.5" y2="4"/><line x1="1" y1="6.5" x2="13" y2="6.5"/></svg></button>
+        <input type="date" id="txn-to-pick" class="date-pick-hidden" tabindex="-1">
+      </div>
+      <input type="text" id="txn-symbol" class="filter-sym" placeholder="Symbol…" autocomplete="off" list="symbol-datalist" aria-label="Filter by symbol">
+      <button class="ghost-btn" id="txn-clear-filters">Clear</button>
+    </div>
+    <div class="chips">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="deposit">Deposits</button>
+      <button class="chip" data-filter="buy">Buys</button>
+      <button class="chip" data-filter="sell">Sells</button>
+      <button class="chip" data-filter="dividend">Dividends</button>
+      <button class="chip" data-filter="fee">Fees &amp; tax</button>
+      <button class="chip" data-filter="fx">FX</button>
+    </div>
+    <div class="panel" id="txn-list"></div>
+  </section>
+
+  <!-- ANALYTICS -->
+  <section class="view" id="view-analytics">
+    <div class="section-head">
+      <h2>Analytics</h2>
+      <div class="chips" id="range-chips" style="margin-bottom:0">
+        <button class="chip" data-range="mtd">MTD</button>
+        <button class="chip" data-range="1m">1M</button>
+        <button class="chip" data-range="3m">3M</button>
+        <button class="chip active" data-range="6m">6M</button>
+        <button class="chip" data-range="ytd">YTD</button>
+        <button class="chip" data-range="1y">1Y</button>
+        <button class="chip" data-range="all">All</button>
+      </div>
+    </div>
+    <div class="panel chart-panel">
+      <div class="chart-head">
+        <div class="chart-title">Portfolio value over time</div>
+        <div class="chart-meta" id="chart1-meta"></div>
+      </div>
+      <div class="chart-wrap" id="chart1-wrap"></div>
+      <div id="chart1-legend"></div>
+    </div>
+    <div class="panel chart-panel" style="margin-top:14px">
+      <div class="chart-head">
+        <div class="chart-title">Return vs deposited</div>
+        <div class="chart-meta" id="chart2-meta"></div>
+      </div>
+      <div class="chart-wrap" id="chart2-wrap"></div>
+      <div id="chart2-insights" class="chart-insights"></div>
+      <div id="chart2-legend"></div>
+    </div>
+    <!-- Allocation chart -->
+    <div class="panel chart-panel" style="margin-top:14px">
+      <div class="chart-head">
+        <div class="chart-title">Allocation</div>
+      </div>
+      <div id="allocation-wrap"></div>
+    </div>
+  </section>
+
+  <!-- SETTINGS -->
+  <section class="view" id="view-settings">
+    <div class="section-head"><h2>Settings</h2></div>
+    <div class="set-grid">
+      <div class="set-panel">
+        <h3>Live prices</h3>
+        <p>Prices come from Yahoo Finance through your own free proxy — no API key, and it covers both US and European listings. Deploy the included <code>worker.js</code> to Cloudflare Workers (about 3 minutes, no card), then paste its URL below. It's stored only on this device.</p>
+        <div class="inline-row">
+          <input type="text" id="proxy-url-input" placeholder="https://your-worker.workers.dev" autocomplete="off">
+          <button class="btn-solid" id="save-proxy-btn">Save</button>
+          <span class="saved-note" id="proxy-saved"></span>
+        </div>
+        <p class="fineprint">On Buy transactions, use Yahoo tickers: <code>AVUV</code> (US), <code>VWCE.DE</code> (Xetra), <code>VUAA.MI</code> (Milan), <code>BRK-B</code>. Anything the proxy can't price, you can still set by hand in the Holdings table.</p>
+      </div>
+      <div class="set-panel">
+        <h3>Base currency</h3>
+        <p>All totals roll up into <strong>EUR</strong>. Foreign values are converted using ECB reference rates (via Frankfurter); currencies not covered, like RSD, use the EUR value you enter manually.</p>
+      </div>
+      <div class="set-panel">
+        <h3>Your data</h3>
+        <p><span id="txn-count">0</span> transactions stored locally in this browser. Export regularly — it is your backup and the way to move to another device.</p>
+        <div class="inline-row">
+          <button class="btn-solid" id="export-btn">Export backup</button>
+          <label class="btn-line file-label">Import backup
+            <input type="file" id="import-input" accept="application/json" hidden>
+          </label>
+          <button class="btn-line danger" id="clear-btn">Erase all data</button>
+        </div>
+        <p class="fineprint">Tip: clearing your browser's site data will also erase this app's data, so keep an exported copy.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="sheet">
+    <h2 id="modal-title">Add transaction</h2>
+    <div class="seg">
+      <button class="seg-btn active" data-type="deposit">Deposit</button>
+      <button class="seg-btn" data-type="buy">Buy</button>
+      <button class="seg-btn" data-type="sell">Sell</button>
+      <button class="seg-btn" data-type="dividend">Dividend</button>
+      <button class="seg-btn" data-type="gift">Gift</button>
+      <button class="seg-btn" data-type="fee">Fee / tax</button>
+      <button class="seg-btn" data-type="fx">FX</button>
+    </div>
+    <div id="form-body"></div>
+    <div class="form-error" id="form-error" role="alert"></div>
+    <div class="sheet-actions">
+      <button class="btn-line" id="modal-cancel">Cancel</button>
+      <button class="btn-solid" id="modal-save">Save transaction</button>
+    </div>
+  </div>
+</div>
+
+<div class="confirm-overlay" id="confirm-overlay" role="alertdialog" aria-modal="true" aria-labelledby="confirm-msg">
+  <div class="confirm-box">
+    <p id="confirm-msg"></p>
+    <div class="confirm-actions">
+      <button class="btn-line" id="confirm-cancel">Cancel</button>
+      <button class="btn-line danger" id="confirm-ok">Confirm</button>
+    </div>
+  </div>
+</div>
+<div class="toast-stack" id="toast-stack" aria-live="polite" aria-atomic="false"></div>
+<datalist id="symbol-datalist"></datalist>
+<script src="app.js"></script>
+</body>
+</html>
