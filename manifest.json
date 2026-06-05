@@ -1,0 +1,24 @@
+{
+  "name": "WallRus — portfolio",
+  "short_name": "WallRus",
+  "description": "Local-first personal investment tracker",
+  "start_url": "./wallRusPortfolio.html",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#2C5848",
+  "background_color": "#F3F0E8",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

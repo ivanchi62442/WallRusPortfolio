@@ -58,16 +58,7 @@ The app works offline after the first load (Google Fonts aside). Your data is st
 
 ### Interface layout
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│  WallRus. portfolio        [☽] [Add transaction]             │
-│  Dashboard  Portfolio  Transactions  Analytics  Settings     │
-├──────────────────────────────────────────────────────────────┤
-│                                                              │
-│                    (Active view content)                     │
-│                                                              │
-└──────────────────────────────────────────────────────────────┘
-```
+SCREENSHOT1
 
 - **Top bar:** Brand name, navigation tabs, theme toggle (moon/sun), and the global "Add transaction" button.
 - **Navigation tabs:** Click any tab to switch views. The last-visited tab is remembered between sessions.
@@ -114,19 +105,7 @@ The app will immediately fetch current prices for any holdings you have.
 
 Click **Add transaction** (top-right button, always visible). A modal sheet slides up with a **type selector** across the top.
 
-```
-┌──────────────────────────────────────────────────────┐
-│  Add transaction                                     │
-│                                                      │
-│  [Deposit] [Buy] [Sell] [Dividend] [Gift] [Fee/Tax] [FX] │
-│                                                      │
-│  (form fields for selected type)                     │
-│                                                      │
-│  Note (optional) ________________________________    │
-│                                                      │
-│              [Cancel]  [Save transaction]            │
-└──────────────────────────────────────────────────────┘
-```
+SCREENSHOT2
 
 **Typical starting sequence for a new portfolio:**
 
@@ -264,25 +243,7 @@ FX moves cash between your per-currency balances. The fee reduces your EUR cash.
 
 The Dashboard is the default landing view. It gives you a one-screen summary of your portfolio.
 
-```
-┌──────────────────────────────────────────────────────┐
-│                  Current value                       │
-│                    €24,310.50                        │
-│              +€2,415.00   +11.02%                    │
-│            total return vs deposited                 │
-│                                                      │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐            │
-│  │Deposited │ │Invested  │ │Fees&taxes│            │
-│  │€21,895.50│ │€19,500.00│ │  €95.00  │            │
-│  └──────────┘ └──────────┘ └──────────┘            │
-│  ┌──────────┐ ┌──────────┐ ┌──────────┐            │
-│  │Uninvested│ │Realized  │ │Dividends │            │
-│  │  €810.50 │ │  +€0.00  │ │  €320.00 │            │
-│  └──────────┘ └──────────┘ └──────────┘            │
-│                                                      │
-│  ↻ Refresh prices        Prices updated 14:22       │
-└──────────────────────────────────────────────────────┘
-```
+SCREENSHOT3
 
 ### Hero number
 
@@ -318,13 +279,7 @@ The Portfolio tab shows your current holdings in detail, plus your cash balances
 
 ### Holdings table
 
-```
- Holding    Qty        Avg cost    Price           Value        Gain/loss     7d
- ──────────────────────────────────────────────────────────────────────────────
- AVUV USD   45.0000    $98.20      $115.40 live   $5,193.00   +$772.70 +17.43%  ▁▂▅▇
- VWCE.DE EUR  10.0000  €87.50      €110.20 live   €1,102.00   +€227.00 +25.94%  ▃▅▆▇
- BRK-B USD   12.5000   $410.00     [set price]    —           —                 —
-```
+SCREENSHOT4
 
 **Columns:**
 
@@ -354,22 +309,7 @@ Below the holdings table, each currency balance is shown with an EUR equivalent.
 
 The Transactions tab is a filterable log of every event, sorted newest-first, grouped by date.
 
-```
-┌──────────────────────────────────────────────────────┐
-│  From [__/__/____] 📅  To [__/__/____] 📅  [Symbol…] [Clear] │
-│                                                      │
-│  [All] [Deposits] [Buys] [Sells] [Dividends] [Fees & tax] [FX] │
-│                                                      │
-│  04 Jun 2026                                         │
-│  ┌────────────────────────────────────────────────┐  │
-│  │ Buy   Buy AVUV · 5.0000 @ $114.80        ✎ ✕  │  │
-│  └────────────────────────────────────────────────┘  │
-│  02 Jun 2026                                         │
-│  ┌────────────────────────────────────────────────┐  │
-│  │ Deposit  Deposit · €1,000.00              ✎ ✕  │  │
-│  └────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────┘
-```
+SCREENSHOT5
 
 ### Filters
 
@@ -418,7 +358,7 @@ The allocation chart always shows the current snapshot regardless of the range.
 
 ### Chart 1 — Portfolio value over time
 
-![alt text](image-1.png)
+SCREENSHOT6
 
 Three lines are drawn:
 
@@ -434,14 +374,7 @@ Three lines are drawn:
 
 ### Chart 2 — Return % vs deposited
 
-```
-+15% ┤                     ╭───────
- +5% ┤       ╭─────────────╯
-  0% ┼───────╯  - - - - - - - - -  (zero line)
- -5% ┤
-     └────────────────────────────
-     Jan 2025   Apr 2025   Jun 2025
-```
+SCREENSHOT7
 
 Shows `(portfolio value − deposited) / deposited × 100` each day, with the same SPY % overlay for direct comparison. A zero line is drawn so it is immediately clear when the portfolio is above or below breakeven.
 
@@ -462,7 +395,7 @@ Below Chart 2, four key stats are shown:
 
 ### Allocation donut chart
 
-![alt text](image.png)
+SCREENSHOT8
 
 Shows each holding as a proportional slice of total stock value. **Hover** over a slice to see a tooltip with symbol, EUR value, and allocation %. The legend on the right also shows each holding's unrealized gain %.
 

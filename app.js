@@ -94,6 +94,8 @@ function saveHist() {
 }
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.content = t === 'dark' ? '#18160F' : '#2C5848';
   const btn = document.getElementById('theme-btn');
   if (!btn) return;
   btn.innerHTML = t === 'dark' ? SVG_SUN : SVG_MOON;
@@ -1554,3 +1556,7 @@ window.setDivKind = setDivKind;
 window.sortPortfolio = sortPortfolio;
 
 document.addEventListener('DOMContentLoaded', init);
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {});
+}
